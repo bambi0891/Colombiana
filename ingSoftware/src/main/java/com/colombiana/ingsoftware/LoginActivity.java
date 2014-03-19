@@ -14,6 +14,4 @@ public class LoginActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE); //Se quita ActionBar para LogIn
     }
 
-
-
 }
