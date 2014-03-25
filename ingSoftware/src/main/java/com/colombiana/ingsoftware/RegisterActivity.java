@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.Parse;
 import com.parse.ParseException;
@@ -43,7 +44,7 @@ public class RegisterActivity extends Activity {
 
                     if(celular.getText().length()==10) {
                         if (password.getText().toString().equals(password2.getText().toString())) {
-                            if(password.getText().length()>=8){
+                            if(password.getText().length()>=6){
                                 validador=true;
                             }
                             else{
@@ -52,14 +53,7 @@ public class RegisterActivity extends Activity {
                                 password.setHintTextColor(Color.RED);
                                 password2.setText("");
                                 password2.setHintTextColor(Color.RED);
-                                new AlertDialog.Builder(RegisterActivity.this).setTitle("Error!")
-                                        .setMessage("La contraseña debe tener por lo menos 8 caracteres!")
-                                        .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialogInterface, int i) {
-
-                                            }
-                                        }).show();
+                                Toast.makeText(RegisterActivity.this,"Contraseña Min 6 Caract",Toast.LENGTH_LONG).show();
                             }
                         }
                         else{
@@ -68,14 +62,7 @@ public class RegisterActivity extends Activity {
                             password.setHintTextColor(Color.RED);
                             password2.setText("");
                             password2.setHintTextColor(Color.RED);
-                            new AlertDialog.Builder(RegisterActivity.this).setTitle("Error!")
-                                    .setMessage("Las contraseñas no coinciden!")
-                                    .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-
-                                        }
-                                    }).show();
+                            Toast.makeText(RegisterActivity.this,"Contraseñas no concuerdan",Toast.LENGTH_LONG).show();
                         }
                     }
 
@@ -83,14 +70,7 @@ public class RegisterActivity extends Activity {
                         validador = false;
                         celular.setText("");
                         celular.setHintTextColor(Color.RED);
-                        new AlertDialog.Builder(RegisterActivity.this).setTitle("Error!")
-                                .setMessage("El No. Celular debe contener 10 digitos!")
-                                .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                                    }
-                                }).show();
+                        Toast.makeText(RegisterActivity.this,"Celular debe tener 10 digitos",Toast.LENGTH_LONG).show();
                     }
 
 
