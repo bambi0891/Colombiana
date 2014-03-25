@@ -71,6 +71,7 @@ public class RegisterActivity extends Activity {
                                     }).show();
                         }
                     }
+
                     else{
                         validador = false;
                         celular.setText("");
