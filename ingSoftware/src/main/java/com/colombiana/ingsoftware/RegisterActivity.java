@@ -9,12 +9,19 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SignUpCallback;
+
 
 public class RegisterActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        Parse.initialize(this,"A4cw5wjpC7yBcw9aeAAQXAgXjM03C55DwQqb8fNx","xlSbsqMKMMP9YavjRrQrqTi7TQVDvrzW1z7wqiST");
 
         TextView registrarse = (TextView) findViewById(R.id.textView3);
         final EditText nombre=(EditText) findViewById(R.id.editText);
@@ -88,14 +95,40 @@ public class RegisterActivity extends Activity {
 
 
                     if(validador) {
-                        new AlertDialog.Builder(RegisterActivity.this).setTitle("Congratulations!")
-                                .setMessage("Registro Exitoso!")
-                                .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                                    }
-                                }).show();
+                        ParseUser user= new ParseUser();
+                        user.setUsername(usuario.getText().toString());
+                        user.setPassword(password.getText().toString());
+                        user.setEmail("javierpile@unisabana.edu.co");
+
+                        user.put("nombre",nombre.getText().toString());
+                        user.put("apellido", apellido.getText().toString());
+                        user.put("cedula", cedula.getText().toString());
+                        user.put("celular",celular.getText().toString());
+
+                        user.signUpInBackground(new SignUpCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                if(e==null) {
+                                    new AlertDialog.Builder(RegisterActivity.this).setTitle("Congratulations!")
+                                            .setMessage("Registro Exitoso!")
+                                            .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                                }
+                                            }).show();
+                                }
+                                else{
+                                    usuario.setText("");
+                                    password.setText("");
+                                    password2.setText("");
+                                    e.getStackTrace();
+                                }
+                            }
+                        });
+
+
                     }
                 }
 
