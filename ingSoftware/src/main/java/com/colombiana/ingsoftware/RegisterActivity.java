@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -20,9 +21,9 @@ public class RegisterActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Parse.initialize(this,"A4cw5wjpC7yBcw9aeAAQXAgXjM03C55DwQqb8fNx","xlSbsqMKMMP9YavjRrQrqTi7TQVDvrzW1z7wqiST");
         setContentView(R.layout.activity_register);
 
-        Parse.initialize(this,"A4cw5wjpC7yBcw9aeAAQXAgXjM03C55DwQqb8fNx","xlSbsqMKMMP9YavjRrQrqTi7TQVDvrzW1z7wqiST");
 
         TextView registrarse = (TextView) findViewById(R.id.textView3);
         final EditText nombre=(EditText) findViewById(R.id.editText);
@@ -62,7 +63,7 @@ public class RegisterActivity extends Activity {
                             password.setHintTextColor(Color.RED);
                             password2.setText("");
                             password2.setHintTextColor(Color.RED);
-                            Toast.makeText(RegisterActivity.this,"Contraseñas no concuerdan",Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegisterActivity.this, "Contraseñas no concuerdan", Toast.LENGTH_LONG).show();
                         }
                     }
 
@@ -75,7 +76,7 @@ public class RegisterActivity extends Activity {
 
 
                     if(validador) {
-
+                        Log.d("Colombina","Entro");
                         ParseUser user= new ParseUser();
                         user.setUsername(usuario.getText().toString());
                         user.setPassword(password.getText().toString());
@@ -98,12 +99,9 @@ public class RegisterActivity extends Activity {
 
                                                 }
                                             }).show();
-                                }
-                                else{
-                                    usuario.setText("");
-                                    password.setText("");
-                                    password2.setText("");
-                                    e.getStackTrace();
+                                }  else{
+                                    Log.d("Colombina", "Error");
+                                    e.printStackTrace();
                                 }
                             }
                         });
