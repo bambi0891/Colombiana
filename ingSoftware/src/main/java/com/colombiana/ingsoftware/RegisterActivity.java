@@ -38,10 +38,10 @@ public class RegisterActivity extends Activity {
             @Override
             public void onClick(View view) {
                 boolean validador;
-                if((!nombre.getText().toString().equals(""))&&(!apellido.getText().toString().equals(""))&&
-                   (!cedula.getText().toString().equals(""))&&(!celular.getText().toString().equals(""))&&
-                   (!usuario.getText().toString().equals(""))&&(!password.getText().toString().equals(""))&&
-                   (!password2.getText().toString().equals(""))){
+                if((!nombre.getText().toString().isEmpty())&&(!apellido.getText().toString().isEmpty())&&
+                   (!cedula.getText().toString().isEmpty())&&(!celular.getText().toString().isEmpty())&&
+                   (!usuario.getText().toString().isEmpty())&&(!password.getText().toString().isEmpty())&&
+                   (!password2.getText().toString().isEmpty())){
 
                     if(celular.getText().length()==10) {
                         if (password.getText().toString().equals(password2.getText().toString())) {
