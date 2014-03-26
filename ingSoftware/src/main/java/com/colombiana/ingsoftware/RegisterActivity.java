@@ -2,15 +2,17 @@ package com.colombiana.ingsoftware;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.LogInCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -76,11 +78,11 @@ public class RegisterActivity extends Activity {
 
 
                     if(validador) {
-                        Log.d("Colombina","Entro");
+
                         ParseUser user= new ParseUser();
                         user.setUsername(usuario.getText().toString());
                         user.setPassword(password.getText().toString());
-                        user.setEmail("javierpile@unisabana.edu.co");
+                        user.setEmail(usuario.getText().toString()+"@unisabana.edu.co");
 
                         user.put("nombre",nombre.getText().toString());
                         user.put("apellido", apellido.getText().toString());
@@ -96,11 +98,24 @@ public class RegisterActivity extends Activity {
                                             .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialogInterface, int i) {
+                                                    final ProgressDialog progressDialog = ProgressDialog.show(RegisterActivity.this,"","Conectando....",true,false);
+                                                    ParseUser.logInInBackground(usuario.getText().toString(),password.getText().toString(), new LogInCallback() {
+                                                        @Override
+                                                        public void done(ParseUser parseUser, ParseException e) {
 
+                                                            if(parseUser != null) {
+                                                                progressDialog.dismiss();
+                                                                login();
+                                                            }else{
+                                                                progressDialog.dismiss();
+                                                                e.printStackTrace();
+                                                            }
+                                                        }
+                                                    });
                                                 }
                                             }).show();
                                 }  else{
-                                    Log.d("Colombina", "Error");
+
                                     e.printStackTrace();
                                 }
                             }
@@ -124,6 +139,12 @@ public class RegisterActivity extends Activity {
 
         });
 
+    }
+
+    private void login() {
+        Intent login = new Intent(RegisterActivity.this,VisitadorActivity.class);
+        startActivity(login);
+        finish();
     }
 
 }
