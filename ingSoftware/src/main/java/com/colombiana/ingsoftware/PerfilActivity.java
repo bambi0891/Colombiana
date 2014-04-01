@@ -31,6 +31,9 @@ public class PerfilActivity extends Activity {
         nombre.setText(nombre.getText() + user.getString("nombre") + " "+user.getString("apellido"));
         celular.setText(celular.getText()+ user.getString("celular"));
         cedula.setText(cedula.getText()+ user.getString("cedula"));
+
+        System.out.println("hola");
+
         username.setText(username.getText()+ user.getUsername());
 
 
