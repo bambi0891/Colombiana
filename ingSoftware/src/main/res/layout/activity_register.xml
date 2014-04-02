@@ -26,8 +26,7 @@
         android:background="@drawable/login_cuadro"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:hint="Nombre"
-        android:textColorHint="#ffffff" />
+        android:hint="Nombre" />
 
     <EditText
         android:layout_width="match_parent"
@@ -40,8 +39,7 @@
         android:layout_below="@+id/editText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:hint="Apellido"
-        android:textColorHint="#ffffff" />
+        android:hint="Apellido" />
 
     <EditText
         android:layout_width="match_parent"
@@ -55,7 +53,6 @@
         android:layout_marginTop="5dp"
         android:background="@drawable/login_cuadro"
         android:hint="Cédula"
-        android:textColorHint="#ffffff"
         android:maxLength="11" />
 
     <EditText
@@ -70,7 +67,6 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/editText3"
         android:layout_marginTop="5dp"
-        android:textColorHint="#ffffff"
         android:inputType="number"
         android:maxLength="10" />
 
@@ -96,7 +92,6 @@
         android:layout_alignParentStart="true"
         android:hint="Usuario"
         android:layout_marginTop="5dp"
-        android:textColorHint="#ffffff"
         android:inputType="textPersonName" />
 
     <EditText
@@ -110,8 +105,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="5dp"
         android:background="@drawable/login_cuadro"
-        android:hint="Password"
-        android:textColorHint="#ffffff"
+        android:hint="Contraseña"
         android:maxLength="10" />
 
     <EditText
@@ -123,10 +117,9 @@
         android:layout_below="@+id/editText6"
         android:layout_marginTop="5dp"
         android:background="@drawable/login_cuadro"
-        android:hint="Confirm Password"
+        android:hint="Confirmar Contraseña"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:textColorHint="#ffffff"
         android:maxLength="10" />
 
     <TextView

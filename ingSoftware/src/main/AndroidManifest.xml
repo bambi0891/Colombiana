@@ -44,6 +44,10 @@
             <meta-data android:name="android.support.PARENT_ACTIVITY"
                 android:value=".PerfilActivity"/>
         </activity>
+        <activity android:name=".dialogoCont"
+            android:label="Cambiar Contraseña"
+            android:screenOrientation="portrait"
+            />
     </application>
 
 </manifest>

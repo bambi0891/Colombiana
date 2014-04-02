@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -15,8 +17,11 @@ import android.widget.Toast;
 import com.parse.LogInCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
+
+import java.io.ByteArrayOutputStream;
 
 
 public class RegisterActivity extends Activity {
@@ -88,6 +93,16 @@ public class RegisterActivity extends Activity {
                         user.put("apellido", apellido.getText().toString());
                         user.put("cedula", cedula.getText().toString());
                         user.put("celular",celular.getText().toString());
+
+                        Bitmap bmp = BitmapFactory.decodeResource(getResources(),R.drawable.picture);
+
+                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        bmp.compress(Bitmap.CompressFormat.PNG,5,stream);
+                        byte[] data = stream.toByteArray();
+
+                        ParseFile file = new ParseFile("foto.png",data);
+
+                        user.put("foto",file);
 
                         user.signUpInBackground(new SignUpCallback() {
                             @Override
