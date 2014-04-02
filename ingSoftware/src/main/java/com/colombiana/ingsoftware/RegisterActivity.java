@@ -82,7 +82,7 @@ public class RegisterActivity extends Activity {
 
 
                     if(validador) {
-
+                        final ProgressDialog progressDialog = ProgressDialog.show(RegisterActivity.this,"","Cargando...",true, false);
                         ParseUser user= new ParseUser();
                         user.setUsername(usuario.getText().toString());
                         user.setPassword(password.getText().toString());
@@ -107,21 +107,22 @@ public class RegisterActivity extends Activity {
                             @Override
                             public void done(ParseException e) {
                                 if(e==null) {
-                                    new AlertDialog.Builder(RegisterActivity.this).setTitle("Congratulations!")
+                                    progressDialog.dismiss();
+                                    new AlertDialog.Builder(RegisterActivity.this).setTitle("Felicitaciones!")
                                             .setMessage("Registro Exitoso!")
                                             .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                                    final ProgressDialog progressDialog = ProgressDialog.show(RegisterActivity.this,"","Conectando....",true,false);
+
                                                     ParseUser.logInInBackground(usuario.getText().toString(),password.getText().toString(), new LogInCallback() {
                                                         @Override
                                                         public void done(ParseUser parseUser, ParseException e) {
 
                                                             if(parseUser != null) {
-                                                                progressDialog.dismiss();
+
                                                                 login();
                                                             }else{
-                                                                progressDialog.dismiss();
+
                                                                 e.printStackTrace();
                                                             }
                                                         }
@@ -129,7 +130,8 @@ public class RegisterActivity extends Activity {
                                                 }
                                             }).show();
                                 }  else{
-
+                                    progressDialog.dismiss();
+                                    Toast.makeText(RegisterActivity.this,"Error de conexion",Toast.LENGTH_LONG).show();
                                     e.printStackTrace();
                                 }
                             }

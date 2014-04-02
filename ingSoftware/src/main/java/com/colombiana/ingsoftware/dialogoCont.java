@@ -59,7 +59,7 @@ public class dialogoCont extends Activity {
                                         password2.setHintTextColor(Color.RED);
                                         password3.setText("");
                                         password3.setHintTextColor(Color.RED);
-                                        Toast.makeText(dialogoCont.this, "Contraseña Min 6 Caract", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(dialogoCont.this, "Contraseña Min 6 Caract", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                                 else{
@@ -68,7 +68,7 @@ public class dialogoCont extends Activity {
                                     password2.setHintTextColor(Color.RED);
                                     password3.setText("");
                                     password3.setHintTextColor(Color.RED);
-                                    Toast.makeText(dialogoCont.this, "Contraseñas no concuerdan", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(dialogoCont.this, "Contraseñas no concuerdan", Toast.LENGTH_SHORT).show();
                                 }
                             }
                             else{
@@ -77,13 +77,13 @@ public class dialogoCont extends Activity {
                                 password.setHintTextColor(Color.RED);
                                 password2.setText("");
                                 password3.setText("");
-                                Toast.makeText(dialogoCont.this, "Contraseña Invalida", Toast.LENGTH_LONG).show();
+                                Toast.makeText(dialogoCont.this, "Contraseña Invalida", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
                 }
                 else{
-                    Toast.makeText(dialogoCont.this, "Campos Vacios!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(dialogoCont.this, "Campos Vacios!", Toast.LENGTH_SHORT).show();
                 }
 
                 if(valida){
