@@ -4,6 +4,7 @@ package com.colombiana.ingsoftware;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -42,7 +43,7 @@ public class dialogoCont extends Activity {
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                final ProgressDialog progressDialog = ProgressDialog.show(dialogoCont.this,"","Validando...",true,false);
                 if((!password.getText().toString().isEmpty())&&(!password2.getText().toString().isEmpty())&&(!password3.getText().toString().isEmpty())){
                     ParseUser.logInInBackground(ParseUser.getCurrentUser().getUsername(),password.getText().toString(), new LogInCallback() {
                         @Override
@@ -54,6 +55,7 @@ public class dialogoCont extends Activity {
                                     if (password2.getText().length() >= 6) {
                                         valida = true;
                                     } else {
+                                        progressDialog.dismiss();
                                         valida = false;
                                         password2.setText("");
                                         password2.setHintTextColor(Color.RED);
@@ -63,6 +65,7 @@ public class dialogoCont extends Activity {
                                     }
                                 }
                                 else{
+                                    progressDialog.dismiss();
                                     valida = false;
                                     password2.setText("");
                                     password2.setHintTextColor(Color.RED);
@@ -72,6 +75,7 @@ public class dialogoCont extends Activity {
                                 }
                             }
                             else{
+                                progressDialog.dismiss();
                                 valida = false;
                                 password.setText("");
                                 password.setHintTextColor(Color.RED);
@@ -83,6 +87,7 @@ public class dialogoCont extends Activity {
                     });
                 }
                 else{
+                    progressDialog.dismiss();
                     Toast.makeText(dialogoCont.this, "Campos Vacios!", Toast.LENGTH_SHORT).show();
                 }
 
@@ -93,6 +98,7 @@ public class dialogoCont extends Activity {
                         public void done(ParseException e) {
                             if(e == null)
                             {
+                                progressDialog.dismiss();
                                 new AlertDialog.Builder(dialogoCont.this)
                                         .setMessage("Cambio de Contraseña Exitoso")
                                         .setNeutralButton("Ok",new DialogInterface.OnClickListener() {
@@ -102,6 +108,7 @@ public class dialogoCont extends Activity {
                                             }
                                         }).show();
                             }else{
+                                progressDialog.dismiss();
                                 new AlertDialog.Builder(dialogoCont.this).setTitle("Error!")
                                         .setMessage("La contraseña no se pudo cambiar, intente de nuevo")
                                         .setNeutralButton("Ok",new DialogInterface.OnClickListener() {
