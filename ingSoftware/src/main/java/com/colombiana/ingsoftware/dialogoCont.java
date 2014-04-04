@@ -23,6 +23,7 @@ import com.parse.SaveCallback;
 public class dialogoCont extends Activity {
 
     boolean valida=false;
+    boolean valida2=false;
 
     public dialogoCont() {
 
@@ -44,39 +45,81 @@ public class dialogoCont extends Activity {
             @Override
             public void onClick(View view) {
                 final ProgressDialog progressDialog = ProgressDialog.show(dialogoCont.this,"","Validando...",true,false);
-                if((!password.getText().toString().isEmpty())&&(!password2.getText().toString().isEmpty())&&(!password3.getText().toString().isEmpty())){
+
+                if((!password.getText().toString().isEmpty())&&(!password2.getText().toString().isEmpty())&&(!password3.getText().toString().isEmpty())) {
+                    if (password2.getText().toString().equals(password3.getText().toString())) {
+                        if (password2.getText().length() >= 6) {
+                            valida = true;
+                            progressDialog.dismiss();
+                            Toast.makeText(dialogoCont.this, "Todo bien!", Toast.LENGTH_SHORT).show();
+                            } else {
+                                progressDialog.dismiss();
+                                valida = false;
+                                password2.setText("");
+                                password2.setHintTextColor(Color.RED);
+                                password3.setText("");
+                                password3.setHintTextColor(Color.RED);
+                                Toast.makeText(dialogoCont.this, "Contraseña Min 6 Caract", Toast.LENGTH_SHORT).show();
+                            }
+                    }
+                    else{
+                        progressDialog.dismiss();
+                        valida = false;
+                        password2.setText("");
+                        password2.setHintTextColor(Color.RED);
+                        password3.setText("");
+                        password3.setHintTextColor(Color.RED);
+                        Toast.makeText(dialogoCont.this, "Contraseñas no concuerdan", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else{
+                    progressDialog.dismiss();
+                    valida=false;
+                    Toast.makeText(dialogoCont.this, "Campos Vacios", Toast.LENGTH_SHORT).show();
+                }
+
+
+                if(valida){
+                    final ProgressDialog progressDialog2 = ProgressDialog.show(dialogoCont.this,"","Comprobando...",true,false);
+
                     ParseUser.logInInBackground(ParseUser.getCurrentUser().getUsername(),password.getText().toString(), new LogInCallback() {
                         @Override
                         public void done(ParseUser parseUser, ParseException e) {
-                            if(parseUser != null)
-                            {
-                                valida=true;
-                                if (password2.getText().toString().equals(password3.getText().toString())) {
-                                    if (password2.getText().length() >= 6) {
-                                        valida = true;
-                                    } else {
-                                        progressDialog.dismiss();
-                                        valida = false;
-                                        password2.setText("");
-                                        password2.setHintTextColor(Color.RED);
-                                        password3.setText("");
-                                        password3.setHintTextColor(Color.RED);
-                                        Toast.makeText(dialogoCont.this, "Contraseña Min 6 Caract", Toast.LENGTH_SHORT).show();
+                            if(parseUser != null){
+                                progressDialog.dismiss();
+                                ParseUser.getCurrentUser().setPassword(password2.getText().toString());
+                                ParseUser.getCurrentUser().saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        if(e == null)
+                                        {
+                                            progressDialog2.dismiss();
+                                            new AlertDialog.Builder(dialogoCont.this)
+                                                    .setMessage("Cambio de Contraseña Exitoso")
+                                                    .setNeutralButton("Ok",new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                                            finish();
+                                                        }
+                                                    }).show();
+                                            finish();
+
+                                        }else{
+                                            progressDialog2.dismiss();
+                                            new AlertDialog.Builder(dialogoCont.this).setTitle("Error!")
+                                                    .setMessage("La contraseña no se pudo cambiar, intente de nuevo")
+                                                    .setNeutralButton("Ok",new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                                                        }
+                                                    }).show();
+                                        }
                                     }
-                                }
-                                else{
-                                    progressDialog.dismiss();
-                                    valida = false;
-                                    password2.setText("");
-                                    password2.setHintTextColor(Color.RED);
-                                    password3.setText("");
-                                    password3.setHintTextColor(Color.RED);
-                                    Toast.makeText(dialogoCont.this, "Contraseñas no concuerdan", Toast.LENGTH_SHORT).show();
-                                }
+                                });
                             }
                             else{
-                                progressDialog.dismiss();
-                                valida = false;
+                                progressDialog2.dismiss();
                                 password.setText("");
                                 password.setHintTextColor(Color.RED);
                                 password2.setText("");
@@ -86,44 +129,11 @@ public class dialogoCont extends Activity {
                         }
                     });
                 }
-                else{
-                    progressDialog.dismiss();
-                    Toast.makeText(dialogoCont.this, "Campos Vacios!", Toast.LENGTH_SHORT).show();
-                }
 
-                if(valida){
-                    ParseUser.getCurrentUser().setPassword(password2.getText().toString());
-                    ParseUser.getCurrentUser().saveInBackground(new SaveCallback() {
-                        @Override
-                        public void done(ParseException e) {
-                            if(e == null)
-                            {
-                                progressDialog.dismiss();
-                                new AlertDialog.Builder(dialogoCont.this)
-                                        .setMessage("Cambio de Contraseña Exitoso")
-                                        .setNeutralButton("Ok",new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialogInterface, int i) {
-                                                finish();
-                                            }
-                                        }).show();
-                            }else{
-                                progressDialog.dismiss();
-                                new AlertDialog.Builder(dialogoCont.this).setTitle("Error!")
-                                        .setMessage("La contraseña no se pudo cambiar, intente de nuevo")
-                                        .setNeutralButton("Ok",new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialogInterface, int i) {
-
-                                            }
-                                        }).show();
-                            }
-                        }
-                    });
-
-                }
             }
+
         });
+
 
         boton2.setOnClickListener(new View.OnClickListener() {
             @Override
