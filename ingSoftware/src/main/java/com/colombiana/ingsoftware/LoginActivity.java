@@ -9,6 +9,7 @@ import android.view.Window;
 
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.LogInCallback;
 import com.parse.Parse;
@@ -53,6 +54,7 @@ public class LoginActivity extends Activity {
                                 log();
                             }else{
                                 progressDialog.dismiss();
+                                Toast.makeText(LoginActivity.this,"Usuario o Contraseña Incorrectos",Toast.LENGTH_LONG).show();
                                 e.printStackTrace();
                             }
                         }

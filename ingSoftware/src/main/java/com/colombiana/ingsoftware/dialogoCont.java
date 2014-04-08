@@ -23,7 +23,6 @@ import com.parse.SaveCallback;
 public class dialogoCont extends Activity {
 
     boolean valida=false;
-    boolean valida2=false;
 
     public dialogoCont() {
 
