@@ -20,6 +20,7 @@ import com.parse.ParseUser;
 public class PerfilActivity extends Activity {
 
     ParseUser user;
+    TextView celular;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +31,11 @@ public class PerfilActivity extends Activity {
         user = ParseUser.getCurrentUser();
 
         TextView nombre = (TextView) findViewById(R.id.textView);
-        TextView celular = (TextView) findViewById(R.id.textView2);
+        celular = (TextView) findViewById(R.id.textView2);
         TextView cedula = (TextView) findViewById(R.id.textView3);
         TextView username = (TextView) findViewById(R.id.textView4);
         Button pass = (Button) findViewById(R.id.button);
-        //Button update = (Button) findViewById(R.id.button2);
+        Button update = (Button) findViewById(R.id.button2);
         final ImageView image = (ImageView) findViewById(R.id.imageView);
 
         ParseFile file = user.getParseFile("foto");
@@ -62,6 +63,12 @@ public class PerfilActivity extends Activity {
 
             }
         });
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogCelu();
+            }
+        });
 
 
     }
@@ -71,5 +78,14 @@ public class PerfilActivity extends Activity {
         startActivity(pass);
     }
 
+    private void DialogCelu(){
+        Intent celu=new Intent(PerfilActivity.this,dialogoCelu.class);
+        startActivity(celu);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        celular.setText("Celular:"+ user.getString("celular"));
+    }
 }

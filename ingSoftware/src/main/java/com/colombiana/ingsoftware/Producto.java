@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.ParseException;
@@ -43,10 +44,10 @@ public class Producto extends Fragment {
 
     boolean validador;
     //Variables de la Tienda
-    String tienda;
-    String direccion;
-    String fecha;
-    String hora;
+    EditText tienda;
+    EditText direccion;
+    TextView fecha;
+    TextView hora;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,36 +60,24 @@ public class Producto extends Fragment {
         boton2=(Button) view.findViewById(R.id.button2);
 
         producto=(EditText) view.findViewById(R.id.editText);
-        producto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                producto.setText("");
-            }
-        });
 
         precio=(EditText) view.findViewById(R.id.editText2);
-        precio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                precio.setText("");
-            }
-        });
 
         marca=(EditText) view.findViewById(R.id.editText3);
-        marca.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                marca.setText("");
-            }
-        });
 
         observaciones=(EditText) view.findViewById(R.id.editText);
-        observaciones.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                observaciones.setText("");
-            }
-        });
+
+        tienda=(EditText) getActivity().findViewById(R.id.editTextTienda);
+
+
+
+        direccion=(EditText) getActivity().findViewById(R.id.editTextDireccion);
+
+        fecha=(TextView) getActivity().findViewById(R.id.textViewFecha);
+        hora=(TextView) getActivity().findViewById(R.id.textViewHora);
+
+
+
 
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,70 +88,14 @@ public class Producto extends Fragment {
                 if((!producto.getText().toString().isEmpty())&&(!precio.getText().toString().isEmpty())&&
                         (!marca.getText().toString().isEmpty())&&(!observaciones.getText().toString().isEmpty())){
 
-                    Tienda tiendita=new Tienda();
-                    validador=tiendita.validar();
-
-                    if(validador){
-                        tienda=tiendita.tienda.getText().toString();
-                        direccion=tiendita.direccion.getText().toString();
-                        fecha=tiendita.fecha.getText().toString();
-                        hora=tiendita.fecha.getText().toString();
-
-                        tiendita.tienda.setEnabled(false);
-                        tiendita.direccion.setEnabled(false);
-
-                        if(sw) {
-                            store = new ParseObject("Store");
-                            store.put("Nombre", tienda);
-                            store.put("Dirección", direccion);
-                            store.put("Fecha", fecha);
-                            store.put("Hora", hora);
-                            store.saveInBackground(new SaveCallback() {
-                                @Override
-                                public void done(ParseException e) {
-                                    if(e==null){
-                                        sw=false;
-                                    }
-                                    else {
-                                        progressDialog.dismiss();
-                                        e.printStackTrace();
-                                    }
-                                }
-                            });
-                        }
-                        if(!sw) {
-                            product = new ParseObject("Product");
-                            product.put("Nombre Tienda", tienda);
-                            product.put("Producto", producto.getText().toString());
-                            product.put("Precio", precio.getText().toString());
-                            product.put("Marca", marca.getText().toString());
-                            product.put("Observaciones", observaciones.getText().toString());
-                            product.saveInBackground(new SaveCallback() {
-                                @Override
-                                public void done(ParseException e) {
-                                    if (e == null) {
-                                        progressDialog.dismiss();
-                                        Toast.makeText(getActivity(), "Producto guardado!", Toast.LENGTH_LONG).show();
-                                        contador++;
-                                        producto.setHint("Nombre del Producto");
-                                        precio.setHint("Precio");
-                                        marca.setHint("Marca");
-                                        observaciones.setHint("(Escriba aqui...)");
-                                    }
-                                    else{
-                                        progressDialog.dismiss();
-                                        e.printStackTrace();
-                                    }
-                                }
-                            });
-                        }
-
-
+                    if((!tienda.getText().toString().isEmpty()) && (!direccion.getText().toString().isEmpty())){
+                        validador=true;
                     }
                     else{
+                        validador=false;
                         progressDialog.dismiss();
                         new AlertDialog.Builder(getActivity()).setTitle("Error!")
-                                .setMessage("Uno o más campos vacios de la TIENDA <----(Devolvere)")
+                                .setMessage("Uno o más campos vacios del Local <----Devolverse")
                                 .setNeutralButton("Ok",new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -173,15 +106,74 @@ public class Producto extends Fragment {
 
                 }
                 else{
+                    validador=false;
                     progressDialog.dismiss();
                     new AlertDialog.Builder(getActivity()).setTitle("Error!")
-                            .setMessage("Uno o más campos vacios del PRODUCTO, ingrese todos los datos!")
+                            .setMessage("Uno o más campos vacios del Producto, ingrese todos los datos!")
                             .setNeutralButton("Ok",new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
 
                                 }
                             }).show();
+                }
+
+                if(validador){
+                    if(sw) {
+                        store = new ParseObject("Store");
+                        store.put("nombre", tienda.getText().toString());
+                        store.put("direccion", direccion.getText().toString());
+                        store.put("fecha", fecha.getText().toString());
+                        store.put("hora", hora.getText().toString());
+                        store.saveInBackground(new SaveCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                if(e==null){
+                                    sw=false;
+                                }
+                                else {
+                                    progressDialog.dismiss();
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                    }
+                    if(!sw) {
+                        product = new ParseObject("Product");
+                        product.put("nombre_tienda", tienda.getText().toString());
+                        product.put("producto", producto.getText().toString());
+                        product.put("precio", precio.getText().toString());
+                        product.put("marca", marca.getText().toString());
+                        product.put("observaciones", observaciones.getText().toString());
+                        product.saveInBackground(new SaveCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                if (e == null) {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(getActivity(), "Producto guardado!", Toast.LENGTH_LONG).show();
+                                    contador++;
+
+                                    producto.setText("");
+                                    precio.setText("");
+                                    marca.setText("");
+                                    observaciones.setText("");
+                                    producto.setHint("Nombre del Producto");
+                                    precio.setHint("Precio");
+                                    marca.setHint("Marca");
+                                    observaciones.setHint("(Escriba aqui...)");
+
+                                    tienda.setEnabled(false);
+                                    direccion.setEnabled(false);
+                                }
+                                else{
+                                    progressDialog.dismiss();
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                    }
+
+
                 }
             }
         });
@@ -190,15 +182,20 @@ public class Producto extends Fragment {
             @Override
             public void onClick(View view) {
                 if(contador>0) {
-                    Tienda tiendita=new Tienda();
-                    tiendita.tienda.setText("Local/Establecimiento");
-                    tiendita.direccion.setText("Direccion");
+
+
                     sw=true;
-                    tiendita.hora.setText(tiendita.df1.format(tiendita.c.getTime()));
-                    tiendita.fecha.setText(tiendita.df2.format(tiendita.c.getTime()));
+                    tienda.setText("");
+                    tienda.setHint("Local/Establecimiento");
+                    direccion.setText("");
+                    direccion.setHint("Direccion");
+                    producto.setText("");
                     producto.setHint("Nombre del Producto");
+                    precio.setText("");
                     precio.setHint("Precio");
+                    marca.setText("");
                     marca.setHint("Marca");
+                    observaciones.setText("");
                     observaciones.setHint("(Escriba aqui...)");
 
                     new AlertDialog.Builder(getActivity()).setTitle("Exitoso!")
@@ -218,6 +215,7 @@ public class Producto extends Fragment {
         });
         return view;
     }
+
 
 
 }

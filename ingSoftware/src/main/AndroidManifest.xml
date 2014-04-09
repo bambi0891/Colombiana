@@ -48,6 +48,12 @@
             android:label="Cambiar Contraseña"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".dialogoCelu"
+            android:label="Cambiar Celular"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".PerfilActivity"
+            />
+
     </application>
 
 </manifest>
