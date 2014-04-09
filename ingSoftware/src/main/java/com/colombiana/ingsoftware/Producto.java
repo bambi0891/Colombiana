@@ -65,7 +65,7 @@ public class Producto extends Fragment {
 
         marca=(EditText) view.findViewById(R.id.editText3);
 
-        observaciones=(EditText) view.findViewById(R.id.editText);
+        observaciones=(EditText) view.findViewById(R.id.editText4);
 
         tienda=(EditText) getActivity().findViewById(R.id.editTextTienda);
 
@@ -128,8 +128,40 @@ public class Producto extends Fragment {
                         store.saveInBackground(new SaveCallback() {
                             @Override
                             public void done(ParseException e) {
-                                if(e==null){
-                                    sw=false;
+                                if(e==null) {
+                                    sw = false;
+                                    product = new ParseObject("Product");
+                                    product.put("nombre_tienda", tienda.getText().toString());
+                                    product.put("producto", producto.getText().toString());
+                                    product.put("precio", precio.getText().toString());
+                                    product.put("marca", marca.getText().toString());
+                                    product.put("observaciones", observaciones.getText().toString());
+                                    product.saveInBackground(new SaveCallback() {
+                                        @Override
+                                        public void done(ParseException e) {
+                                            if (e == null) {
+                                                progressDialog.dismiss();
+                                                Toast.makeText(getActivity(), "Producto guardado!", Toast.LENGTH_LONG).show();
+                                                contador++;
+
+                                                producto.setText("");
+                                                precio.setText("");
+                                                marca.setText("");
+                                                observaciones.setText("");
+                                                producto.setHint("Nombre del Producto");
+                                                precio.setHint("Precio");
+                                                marca.setHint("Marca");
+                                                observaciones.setHint("(Escriba aqui...)");
+
+                                                tienda.setEnabled(false);
+                                                direccion.setEnabled(false);
+                                            }
+                                            else{
+                                                progressDialog.dismiss();
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    });
                                 }
                                 else {
                                     progressDialog.dismiss();

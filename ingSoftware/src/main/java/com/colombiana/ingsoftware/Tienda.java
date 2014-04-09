@@ -19,6 +19,7 @@ public class Tienda extends Fragment {
     public Tienda() {
     }
 
+
     TextView fech;
     TextView hor;
     ImageView refresh;
@@ -33,15 +34,15 @@ public class Tienda extends Fragment {
         fech=(TextView) view1.findViewById(R.id.textViewFecha);
         hor=(TextView) view1.findViewById(R.id.textViewHora);
         refresh=(ImageView) view1.findViewById(R.id.imageView2);
-        fech.setText(fech.getText()+": "+df2.format(c.getTime()));
-        hor.setText(hor.getText() + ": " + df1.format(c.getTime()));
+        fech.setText(df2.format(c.getTime()));
+        hor.setText(df1.format(c.getTime()));
 
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 c=Calendar.getInstance();
-                fech.setText("Fecha: "+df2.format(c.getTime()));
-                hor.setText("Hora: " + df1.format(c.getTime()));
+                fech.setText(df2.format(c.getTime()));
+                hor.setText(df1.format(c.getTime()));
             }
         });
         return  view1;
