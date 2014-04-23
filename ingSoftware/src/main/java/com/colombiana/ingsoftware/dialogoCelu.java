@@ -121,7 +121,7 @@ public class dialogoCelu extends Activity {
                 finish();
             }
         });
-
+        System.out.println("hola");
         
     }
 
