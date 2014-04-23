@@ -5,18 +5,22 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.parse.LogInCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
+
+import java.io.ByteArrayOutputStream;
 
 
 public class RegisterActivity extends Activity {
@@ -78,7 +82,7 @@ public class RegisterActivity extends Activity {
 
 
                     if(validador) {
-
+                        final ProgressDialog progressDialog = ProgressDialog.show(RegisterActivity.this,"","Cargando...",true, false);
                         ParseUser user= new ParseUser();
                         user.setUsername(usuario.getText().toString());
                         user.setPassword(password.getText().toString());
@@ -89,25 +93,36 @@ public class RegisterActivity extends Activity {
                         user.put("cedula", cedula.getText().toString());
                         user.put("celular",celular.getText().toString());
 
+                        Bitmap bmp = BitmapFactory.decodeResource(getResources(),R.drawable.picture);
+
+                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        bmp.compress(Bitmap.CompressFormat.PNG,5,stream);
+                        byte[] data = stream.toByteArray();
+
+                        ParseFile file = new ParseFile("foto.png",data);
+
+                        user.put("foto",file);
+
                         user.signUpInBackground(new SignUpCallback() {
                             @Override
                             public void done(ParseException e) {
                                 if(e==null) {
-                                    new AlertDialog.Builder(RegisterActivity.this).setTitle("Congratulations!")
+                                    progressDialog.dismiss();
+                                    new AlertDialog.Builder(RegisterActivity.this).setTitle("Felicitaciones!")
                                             .setMessage("Registro Exitoso!")
                                             .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                                    final ProgressDialog progressDialog = ProgressDialog.show(RegisterActivity.this,"","Conectando....",true,false);
+
                                                     ParseUser.logInInBackground(usuario.getText().toString(),password.getText().toString(), new LogInCallback() {
                                                         @Override
                                                         public void done(ParseUser parseUser, ParseException e) {
 
                                                             if(parseUser != null) {
-                                                                progressDialog.dismiss();
+
                                                                 login();
                                                             }else{
-                                                                progressDialog.dismiss();
+
                                                                 e.printStackTrace();
                                                             }
                                                         }
@@ -115,7 +130,8 @@ public class RegisterActivity extends Activity {
                                                 }
                                             }).show();
                                 }  else{
-
+                                    progressDialog.dismiss();
+                                    Toast.makeText(RegisterActivity.this,"Error de conexion",Toast.LENGTH_LONG).show();
                                     e.printStackTrace();
                                 }
                             }

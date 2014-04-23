@@ -8,7 +8,7 @@
         android:showAsAction="never" />
 
     <item android:id="@+id/logout"
-        android:title="Log out"
+        android:title="Cerrar Sesión"
         android:orderInCategory="100"
         android:showAsAction="never" />
 

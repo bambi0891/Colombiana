@@ -17,21 +17,21 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="false"
         android:gravity="center"
-        android:background="#2853b9"
+        android:background="@drawable/slide"
         android:textStyle="bold"
-        android:textSize="25dp" />
+        android:textSize="25dp"
+        android:textColor="#ffffff" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Nombre: "
         android:id="@+id/textView"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="false"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="130dp"
         android:textSize="20dp"
-        android:layout_below="@+id/textView5" />
+        android:layout_below="@+id/textView5"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="match_parent"
@@ -56,15 +56,15 @@
         android:textSize="20dp" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Username: "
+        android:text="Usuario: "
         android:id="@+id/textView4"
+        android:layout_marginTop="51dp"
+        android:textSize="20dp"
         android:layout_below="@+id/textView3"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="33dp"
-        android:textSize="20dp" />
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -78,19 +78,19 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Actualizar Perfil"
+        android:text="Cambiar Celular"
         android:id="@+id/button2"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:id="@+id/imageView"
-        android:layout_above="@+id/button"
+        android:layout_below="@+id/textView5"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="57dp"
-        android:src="@drawable/colombina_logo" />
+        android:layout_marginTop="30dp"
+        android:src="@drawable/picture" />
 
 </RelativeLayout>

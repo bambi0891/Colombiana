@@ -21,6 +21,8 @@ public class VisitadorActivity extends FragmentActivity implements ActionBar.Tab
     ViewPager viewPager;
     ActionBar actionBar;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -139,4 +141,6 @@ public class VisitadorActivity extends FragmentActivity implements ActionBar.Tab
             return 2;
         }
     }
+
+
 }

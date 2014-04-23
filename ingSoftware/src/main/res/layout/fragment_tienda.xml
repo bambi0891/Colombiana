@@ -3,11 +3,109 @@
     android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="46dp"
+        android:text="Información del Local"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentStart="false"
+        android:textSize="23dp"
+        android:textColor="#ffffff"
+        android:background="@drawable/slide"
+        android:gravity="center"
+        android:linksClickable="false" />
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextTienda"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:hint="Local/Establecimiento"
+        android:textSize="18dp"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextDireccion"
+        android:layout_marginTop="90dp"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:hint="Dirección"
+        android:textSize="18dp"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:layout_width="120dp"
+        android:layout_height="32dp"
+        android:text="Fecha"
+        android:id="@+id/textViewFecha"
+        android:layout_below="@+id/editTextDireccion"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:textColor="#ffffff" />
+
+    <TextView
+        android:layout_width="120dp"
+        android:layout_height="32dp"
+        android:text="Hora"
+        android:id="@+id/textViewHora"
+        android:layout_below="@+id/editTextDireccion"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:textSize="20dp" />
+
     <ImageView
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:id="@+id/imageView"
+        android:layout_below="@+id/textViewHora"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/colombina_logo" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/imageView2"
+        android:src="@drawable/refresh"
+        android:layout_below="@+id/textViewFecha"
+        android:layout_toRightOf="@+id/imageView" />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/colombina_login" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/textView2"
+        android:layout_above="@+id/imageView2"
+        android:layout_alignLeft="@+id/editTextDireccion"
+        android:layout_alignStart="@+id/editTextDireccion"
+        android:text="Fecha:"
+        android:textSize="20dp"
+        android:textColor="#ffffff"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Hora:"
+        android:id="@+id/textView3"
+        android:layout_alignBottom="@+id/imageView2"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2"
+        android:singleLine="false"
+        android:textColor="#ffffff"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
 </RelativeLayout>
