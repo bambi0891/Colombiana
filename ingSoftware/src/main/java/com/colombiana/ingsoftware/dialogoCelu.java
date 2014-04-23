@@ -25,6 +25,9 @@ public class dialogoCelu extends Activity {
 
     public dialogoCelu() {
 
+
+
+
     }
 
     @Override
